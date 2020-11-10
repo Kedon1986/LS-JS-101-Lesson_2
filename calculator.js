@@ -1,3 +1,4 @@
+const MESSAGES = require('./calculator_messages.json');
 const readline = require('readline-sync');
 
 function prompt(message) {
@@ -9,34 +10,34 @@ function invalidNumber(number) {
   return Number.isNaN(Number(number));
 }
 
-prompt('Welcome to Calculator!');
+prompt(MESSAGES['welcome']);
 
 while (true) {
 
-  prompt("What's the first number?");
+  prompt(MESSAGES['firstNum']);
   let number1 = readline.question();
 
   //First number validation
   while (invalidNumber(number1)) {
-    prompt("Hmm... that doesn't look like a valid number.");
+    prompt(MESSAGES['invalidNum']);
     number1 = readline.question();
   }
 
-  prompt("What's the second number?");
+  prompt(MESSAGES['secondNum']);
   let number2 = readline.question();
 
   //Second number validation
   while (invalidNumber(number2)) {
-    prompt("Hmm... that doesn't look like a valid number.");
+    prompt(MESSAGES['invalidNum']);
     number2 = readline.question();
   }
 
-  prompt('What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide');
+  prompt(MESSAGES['numOperation']);
   let operation = readline.question();
 
   // operation validation
   while (!['1', '2', '3', '4'].includes(operation)) {
-    prompt('Must choose 1, 2, 3 or 4');
+    prompt(MESSAGES['operationValid']);
     operation = readline.question();
   }
 
@@ -56,9 +57,9 @@ while (true) {
       break;
   }
 
-  prompt(`The result is: ${output}`);
+  prompt(MESSAGES['result']  + `${output}`);
 
-  prompt('Would you like to peform another calculation? : - Please type Y for yes and N for no');
+  prompt(MESSAGES['playAgain']);
   let playAgain = readline.question();
 
   if (playAgain === 'N' || playAgain === 'n') {
