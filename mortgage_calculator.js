@@ -6,7 +6,7 @@ function prompt(message) {
 }
 
 function invalidNumber(number) {
-  return Number.isNaN(Number(number));
+  return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
 prompt(MESSAGES['welcome']);
@@ -40,19 +40,20 @@ while (true) {
     loanDuration = readline.question();
   }
 
-  interestRate = interestRate / 100 / 12;
-  loanDuration *= 12;
+  let monthlyInterestRate = interestRate / 100 / 12;
+
 
   let monthlyRate = loanAmount *
-  (interestRate / (1 - Math.pow((1 + interestRate), (-loanDuration))));
+  (monthlyInterestRate /
+    (1 - Math.pow((1 + monthlyInterestRate), (-loanDuration))));
   monthlyRate = monthlyRate.toFixed(2);
 
   prompt(MESSAGES['result']  + `$${monthlyRate}`);
 
   prompt(MESSAGES['playAgain']);
-  let playAgain = readline.question();
+  let playAgain = readline.question().toLowerCase();
 
-  if (playAgain === 'N' || playAgain === 'n') {
+  if (playAgain === 'n') {
     break;
   }
 }
